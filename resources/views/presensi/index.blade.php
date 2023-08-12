@@ -257,7 +257,7 @@
 
             Swal.fire({
                 title: 'Yakin mau mensubmit data?',
-                text: "Data setelah disubmit tidak bisa dihapus atau diedit",
+                text: "Data maksimal bisa diedit dan dihapus setelah 1 jam melakukan submit",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
