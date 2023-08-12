@@ -41,52 +41,120 @@
         </div>
 
         <div>
-            <div class="mt-3 rounded-lg border-[1px] border-gray-200 p-4">
-                <div class="grid lg:grid-cols-2 grid-cols-1 gap-3">
-                    <div>
-                        <table class="table-auto border-collapse border-0">
-                            <tbody>
-                                <tr>
-                                    <td class="p-2">Mata Kuliah</td>
-                                    <td class="p-2">: {{ $presensi->mata_kuliah }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Waktu Perkuliahan</td>
-                                    <td class="p-2">: {{ $presensi->waktu_perkuliahan }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Aktivitas</td>
-                                    <td class="p-2">: {{ $presensi->aktivitas }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Jumlah Mahasiswa</td>
-                                    <td class="p-2">: {{ $presensi->jumlah_mahasiswa }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Mahasiswa tidak hadir</td>
-                                    <td class="p-2">: {{ $presensi->mahasiswa_tidak_hadir }}</td>
-                                </tr>
-                                @if ($presensi->detail_mahasiswa_tidak_hadir)
+            @if (time() < $presensi->time_to_edit)
+                <div class="mt-3 rounded-lg border-[1px] border-gray-200 p-4">
+                    <form action="" class="mt-5" enctype="multipart/form-data" method="POST">
+                        @csrf
+                        <div class="mb-6">
+                            <label for="mata_kuliah" class="block mb-2 text-sm font-medium text-gray-900">Mata
+                                Kuliah</label>
+                            <input type="text" id="mata_kuliah" name="mata_kuliah" value="{{ $presensi->mata_kuliah }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+
+                        </div>
+                        <div class="mb-6">
+                            <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Aktivitas</label>
+                            <textarea id="aktivitas" rows="4" name="aktivitas"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $presensi->aktivitas }}</textarea>
+
+                        </div>
+                        <div class="mb-6">
+                            <label for="jumlah_mahasiswa" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
+                                Mahasiswa</label>
+                            <input type="number" id="jumlah_mahasiswa" name="jumlah_mahasiswa"
+                                value="{{ $presensi->jumlah_mahasiswa }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+
+                        </div>
+                        <div class="mb-6">
+                            <label for="mahasiswa_tidak_hadir"
+                                class="block mb-2 text-sm font-medium text-gray-900">Mahasiswa tidak
+                                hadir</label>
+                            <input type="text" id="mahasiswa_tidak_hadir" name="mahasiswa_tidak_hadir"
+                                value="{{ $presensi->mahasiswa_tidak_hadir }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                placeholder="mahasiswa_tidak_hadir">
+
+                        </div>
+                        <div class="mb-6">
+                            <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Detail Mahasiswa
+                                tidak
+                                hadir</label>
+                            <textarea id="detail_mahasiswa_tidak_hadir" rows="4" name="detail_mahasiswa_tidak_hadir"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $presensi->detail_mahasiswa_tidak_hadir }}</textarea>
+                        </div>
+                        <div class="mb-6">
+                            <label for="waktu_perkuliahan" class="block mb-2 text-sm font-medium text-gray-900">Waktu
+                                perkuliahan</label>
+                            <input type="text" id="waktu_perkuliahan" name="waktu_perkuliahan"
+                                value="{{ $presensi->waktu_perkuliahan }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                placeholder="NIK">
+                        </div>
+                        <div class="mb-6">
+                            <label for="file_input" class="block mb-2 text-sm font-medium text-gray-900">Foto
+                                Perkuliahan</label>
+                            <img src="{{ asset('storage/' . $presensi->image_path) }}" alt="photo perkuliahan"
+                                class="w-[200px] rounded">
+                            <p class="mt-3 text-xs">Foto (jpg/jpeg, (max. 500 KB))</p>
+                            <input class="file-input file-input-bordered w-full max-w-xs mt-3" id="file_input"
+                                type="file" name="foto_perkuliahan">
+                        </div>
+                        <div class="mb-6">
+                            <button type="submit"
+                                class="bg-green-500 p-2 rounded-lg text-white hover:bg-green-800 font-bold transition-all">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            @else
+                <div class="mt-3 rounded-lg border-[1px] border-gray-200 p-4">
+                    <div class="grid lg:grid-cols-2 grid-cols-1 gap-3">
+                        <div>
+                            <table class="table-auto border-collapse border-0">
+                                <tbody>
                                     <tr>
-                                        <td class="p-2">Detail mahasiswa tidak hadir</td>
-                                        <td class="p-2">: {{ $presensi->detail_mahasiswa_tidak_hadir }}</td>
+                                        <td class="p-2">Mata Kuliah</td>
+                                        <td class="p-2">: {{ $presensi->mata_kuliah }}</td>
                                     </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <table class="table-auto border-collapse border-0">
-                            <tbody>
-                                <tr>
-                                    <img src="{{ asset('storage/' . $presensi->image_path) }}" alt="Foto Perkuliahan"
-                                        class="lg:w-[200px] w-full">
-                                </tr>
-                            </tbody>
-                        </table>
+                                    <tr>
+                                        <td class="p-2">Waktu Perkuliahan</td>
+                                        <td class="p-2">: {{ $presensi->waktu_perkuliahan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2">Aktivitas</td>
+                                        <td class="p-2">: {{ $presensi->aktivitas }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2">Jumlah Mahasiswa</td>
+                                        <td class="p-2">: {{ $presensi->jumlah_mahasiswa }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2">Mahasiswa tidak hadir</td>
+                                        <td class="p-2">: {{ $presensi->mahasiswa_tidak_hadir }}</td>
+                                    </tr>
+                                    @if ($presensi->detail_mahasiswa_tidak_hadir)
+                                        <tr>
+                                            <td class="p-2">Detail mahasiswa tidak hadir</td>
+                                            <td class="p-2">: {{ $presensi->detail_mahasiswa_tidak_hadir }}</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table-auto border-collapse border-0">
+                                <tbody>
+                                    <tr>
+                                        <img src="{{ asset('storage/' . $presensi->image_path) }}" alt="Foto Perkuliahan"
+                                            class="lg:w-[200px] w-full">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            @endif
         </div>
     </div>
 

@@ -18,6 +18,8 @@ Route::middleware(['auth.dosen'])->group(function () {
         Route::get('/', [PresensiController::class, 'index']);
         Route::post('/', [PresensiController::class, 'store']);
         Route::get('/{kode_pertemuan}', [PresensiController::class, 'view']);
+        Route::post('/{kode_pertemuan}', [PresensiController::class, 'update']);
+        Route::get('/{kode_pertemuan}/hapus', [PresensiController::class, 'delete']);
     });
 
 
