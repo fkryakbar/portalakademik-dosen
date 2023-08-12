@@ -27,7 +27,14 @@ Route::middleware(['auth.dosen'])->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        if (Auth::user()->role == 'dosen') {
+            return redirect()->to('/profile');
+        }
+    }
+    return redirect()->to('https://siamad.stitastbr.ac.id');
+
+    // return view('welcome');
 })->name('login');
 
 
