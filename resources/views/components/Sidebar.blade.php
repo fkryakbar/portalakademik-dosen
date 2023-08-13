@@ -1,8 +1,8 @@
-<div class="p-4 bg-white min-h-full lg:sticky absolute w-[300px] z-[101] transition-all antialiased overflow-y-auto shadow-xl lg:block hidden"
-    :class="open ? 'left-0 block' : '-left-[300px] hidden'">
+<div class="p-4 bg-white min-h-full lg:sticky absolute w-[300px] z-[101] transition-all antialiased overflow-y-auto shadow-xl"
+    :class="open ? 'left-0' : '-left-[300px]'">
     <div class="flex justify-between items-center">
         <div class="flex gap-2 items-center">
-            <img src="{{ asset('assets/image/logo.png') }}" alt="logo" class="w-9">
+            {{-- <img src="{{ asset('assets/image/logo.png') }}" alt="logo" class="w-9"> --}}
             <div>
                 <h1 class="text-xl font-semibold text-green-500">PORTAL DOSEN</h1>
                 <p class="text-gray-600 font-semibold text-xs">SIAMAD</p>
