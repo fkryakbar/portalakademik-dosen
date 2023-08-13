@@ -13,6 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @yield('head-tag')
     @vite('resources/css/app.css')
+    <style>
+        [x-cloak] {
+            display: none
+        }
+    </style>
 </head>
 
 <body x-data="{ open: false }" class="bg-slate-100">
