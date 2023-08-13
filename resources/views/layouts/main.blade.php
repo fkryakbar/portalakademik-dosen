@@ -26,8 +26,8 @@
             <x-Sidebar />
         </div>
         <div class="lg:basis-[87%] w-full flex-grow">
-            {{-- <div class="h-screen bg-black absolute min-h-full w-screen z-10 bg-opacity-50" x-show="open">
-            </div> --}}
+            <div class="h-screen bg-black absolute min-h-full w-screen z-10 bg-opacity-50" x-show="open">
+            </div>
             <div class="p-2 flex flex-col">
                 <x-Header />
                 <div class="p-2 bg-white rounded drop-shadow mt-3  overflow-auto flex-grow">

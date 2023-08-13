@@ -1,6 +1,6 @@
 <div x-cloak
-    class="p-4 bg-white min-h-full lg:fixed absolute w-[300px] z-[10000] transition-all antialiased overflow-y-auto"
-    :class="open ? 'left-0' : '-left-[300px]'">
+    class="p-4 bg-white min-h-full lg:sticky absolute w-[300px] z-[101] transition-all antialiased overflow-y-auto"
+    :class="open ? 'translate-x-[0px]' : '-translate-x-[300px]'">
     <div class="flex justify-between items-center">
         <div class="flex gap-2 items-center">
             <img src="{{ asset('assets/image/logo.png') }}" alt="logo" class="w-9">
