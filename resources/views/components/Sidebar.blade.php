@@ -1,4 +1,5 @@
-<div class="p-4 bg-white min-h-full lg:sticky absolute w-[300px] z-[10000] transition-all antialiased overflow-y-auto"
+<div x-cloak
+    class="p-4 bg-white min-h-full lg:fixed absolute w-[300px] z-[10000] transition-all antialiased overflow-y-auto"
     :class="open ? 'left-0' : '-left-[300px]'">
     <div class="flex justify-between items-center">
         <div class="flex gap-2 items-center">
