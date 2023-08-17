@@ -166,7 +166,7 @@
                             getData(e.target.value)
                         });;
                     })
-                    getData(tahun_ajaran_toggle.value)
+                    getData(23241)
                 })
 
                 return {
