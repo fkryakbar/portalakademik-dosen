@@ -2,11 +2,19 @@
 
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('/', function () {
+    if (Auth::check()) {
+        if (Auth::user()->role == 'dosen') {
+            return redirect()->to('/profile');
+        }
+    }
+    return redirect()->to('https://siamad.stitastbr.ac.id');
+})->name('login');
 
 Route::middleware(['auth.dosen'])->group(function () {
     Route::prefix('profile')->group(function () {
@@ -28,17 +36,6 @@ Route::middleware(['auth.dosen'])->group(function () {
     });
 });
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        if (Auth::user()->role == 'dosen') {
-            return redirect()->to('/profile');
-        }
-    }
-    return redirect()->to('https://siamad.stitastbr.ac.id');
-
-    // return view('welcome');
-})->name('login');
-
 
 Route::get('/logout', function (Request $request) {
     Auth::logout();
@@ -47,4 +44,16 @@ Route::get('/logout', function (Request $request) {
     $request->session()->regenerateToken();
 
     return redirect('/');
+});
+
+
+Route::get('/run-dev', function () {
+
+    $user = User::where('role', 'dosen')->firstOrFail();
+    Auth::login($user);
+    if (Auth::check()) {
+        if (Auth::user()->role == 'dosen') {
+            return redirect()->to('/profile');
+        }
+    }
 });
