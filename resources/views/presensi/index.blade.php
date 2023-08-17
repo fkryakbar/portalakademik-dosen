@@ -74,7 +74,8 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="bg-red-500 p-2 rounded-lg w-fit text-white">
+                                <div v-if="time < parseInt(d.time_to_edit)"
+                                    class="bg-red-500 p-2 rounded-lg w-fit text-white">
                                     <button v-on:click="delete_data(d.kode_pertemuan)">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="w-6 h-6">
