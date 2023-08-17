@@ -36,7 +36,7 @@
                 <p>{{ session('message') }}</p>
             </div>
         @endif
-        {{-- <div class="flex justify-between items-center mt-4">
+        <div class="flex justify-between items-center mt-4">
             <p class="hidden lg:block font-bold text-gray-700 text-xl">Data Presensi</p>
             <div class="flex gap-2 items-center">
                 <p>Semester</p>
@@ -48,9 +48,9 @@
                     @endforeach
                 </select>
             </div>
-        </div> --}}
+        </div>
         <div class="mt-10">
-            <div class="overflow-x-auto">
+            <div class="overflow-scroll">
                 <table class="table w-full lg:text-base text-xs">
                     <!-- head -->
                     <thead>
@@ -166,7 +166,7 @@
                             getData(e.target.value)
                         });;
                     })
-                    getData(23241)
+                    getData(tahun_ajaran_toggle.value)
                 })
 
                 return {
