@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="p-5 min-h-screen" id="app">
+    <div class="lg:p-5 p-2 min-h-screen" id="app">
         <div class="flex justify-between items-center">
             <div class="flex gap-2 items-center text-gray-500  mb-3">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10">
@@ -49,8 +49,8 @@
                 </select>
             </div>
         </div>
-        <div class="mt-10">
-            <div class="overflow-scroll">
+        <div class="pt-10">
+            <div class="overflow-x-auto">
                 <table class="table w-full lg:text-base text-xs">
                     <!-- head -->
                     <thead>
