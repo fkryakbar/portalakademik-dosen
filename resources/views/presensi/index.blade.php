@@ -65,8 +65,7 @@
                             <td>@{{ d.waktu_perkuliahan }}</td>
                             <td>@{{ d.mata_kuliah }}</td>
                             <td class="flex gap-2">
-                                <div v-if="time < parseInt(d.time_to_edit)"
-                                    class="bg-blue-500 p-2 rounded-lg w-fit text-white">
+                                <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
                                     <a :href="`/presensi/${d.kode_pertemuan}`">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -75,7 +74,8 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="bg-red-500 p-2 rounded-lg w-fit text-white">
+                                <div v-if="time < parseInt(d.time_to_edit)"
+                                    class="bg-red-500 p-2 rounded-lg w-fit text-white">
                                     <button v-on:click="delete_data(d.kode_pertemuan)">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="w-6 h-6">
