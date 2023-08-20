@@ -179,105 +179,6 @@
             }
         }).mount('#app')
     </script>
-    {{-- <script>
-        const tahun_ajaran_toggle = document.getElementById('tahun-ajaran');
-        $(document).ready(function() {
-            $('#tahun-ajaran').select2().on('change', function(e) {
-                getData(e.target.value)
-            });;
-        });
-
-        function getData(tahun_ajaran) {
-            document.getElementById('data_presensi').innerHTML = `<tr>
-                            <td>Loading...</td>
-                        </tr>`;
-            fetch(`/api/presensi/${tahun_ajaran}`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }).then(response => response.json())
-                .then(data => {
-                    if (data.data.length > 0) {
-                        let html = ''
-                        data.data.forEach((d) => {
-                            if ({{ time() }} < parseInt(d.time_to_edit)) {
-                                html += `<tr>
-                                            <td>${d.waktu_perkuliahan}</td>
-                                            <td>${d.mata_kuliah}</td>
-                                            <td class="flex gap-1">
-                                                <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
-                                                    <a href="/presensi/${d.kode_pertemuan}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                            stroke="currentColor" class="w-4 h-4">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                <div class="bg-red-500 p-2 rounded-lg w-fit text-white">
-                                                    <button onclick="delete_data('${d.kode_pertemuan}')" href="/presensi/${d.kode_pertemuan}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                                                            <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>`
-
-                            } else {
-                                html += `<tr>
-                                            <td>${d.waktu_perkuliahan}</td>
-                                            <td>${d.mata_kuliah}</td>
-                                            <td>
-                                                <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
-                                                    <a href="/presensi/${d.kode_pertemuan}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                            stroke="currentColor" class="w-4 h-4">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                </td>
-                                        </tr>`
-                            }
-                        })
-                        document.getElementById('data_presensi').innerHTML = html
-                    } else {
-                        document.getElementById('data_presensi').innerHTML = `<tr>
-                            <td>Belum ada data</td>
-                        </tr>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('data_presensi').innerHTML = `<tr>
-                            <td>Error</td>
-                        </tr>`;
-                });
-        }
-        getData(tahun_ajaran_toggle.value)
-
-
-        function delete_data(kode_pertemuan) {
-            Swal.fire({
-                title: 'Yakin mau menghapus data?',
-                text: "Data tidak akan bisa dikembalikan",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = `/presensi/${kode_pertemuan}/hapus`
-                }
-            })
-        }
-    </script> --}}
 @endsection
 @section('bottom')
     <input type="checkbox" id="buat_presensi" class="modal-toggle" />
@@ -320,6 +221,14 @@
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                         placeholder="Ahmad Junaidi, Ilham Saputra, Syauqi Ramadhan">{{ old('detail_mahasiswa_tidak_hadir') }}</textarea>
                 </div>
+                @php
+                    $max = new DateTime();
+                    $max = $max->format('Y-m-d');
+                    
+                    $min = new DateTime();
+                    $min = $min->sub(new DateInterval('P7D'));
+                    $min = $min->format('Y-m-d');
+                @endphp
                 <div class="mb-6">
                     <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                         Perkuliahan</label>
@@ -332,6 +241,7 @@
                             </svg>
                         </div>
                         <input type="date" id="tanggal" name="tanggal" value="{{ old('tanggal') }}"
+                            max="{{ $max }}" min="{{ $min }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                             placeholder="Select date">
                     </div>
