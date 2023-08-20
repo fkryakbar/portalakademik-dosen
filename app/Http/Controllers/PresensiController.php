@@ -82,12 +82,19 @@ class PresensiController extends Controller
             'jumlah_mahasiswa' => 'required|numeric|max:300',
             'mahasiswa_tidak_hadir' => 'required|numeric|max:300',
             'detail_mahasiswa_tidak_hadir' => 'max:500',
-            'waktu_perkuliahan' => 'max:100',
+
+            'tanggal' => 'required|max:30',
+            'dari_jam' => 'required|max:10',
+            'sampai_jam' => 'required|max:10',
 
             'foto_perkuliahan' => 'file|mimes:jpeg,png|max:500',
         ]);
         $presensi = Presensi::where('kode_pertemuan', $kode_pertemuan)->where('user_id', Auth::user()->id)->where('time_to_edit', '>', time())->firstOrFail();
 
+        $waktu_perkuliahan = $request->tanggal . ' ' . $request->dari_jam . '-' . $request->sampai_jam;
+        $request->merge([
+            'waktu_perkuliahan' => $waktu_perkuliahan
+        ]);
 
         if ($request->foto_perkuliahan) {
             $request->file('foto_perkuliahan')->storeAs('/', $presensi->image_path);
