@@ -100,7 +100,7 @@ class PresensiController extends Controller
             $request->file('foto_perkuliahan')->storeAs('/', $presensi->image_path);
         }
 
-        $presensi->update($request->except(['foto_perkuliahan']));
+        $presensi->update($request->except(['foto_perkuliahan', 'tanggal', 'dari_jam', 'sampai_jam']));
         return back()->with('message', 'Data berhasil diperbarui');
     }
 }
