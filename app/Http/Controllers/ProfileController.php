@@ -48,24 +48,14 @@ class ProfileController extends Controller
 
         $biodata = BiodataDosen::where('user_id', $dosen->id)->firstOrFail();
 
-        // if ($request->profile) {
-        //     if ($biodata->gambar) {
-        //         $path = $request->file('profile')->storeAs('/profile', $this->get_file_name($biodata->gambar));
-        //         $request->merge(['gambar' =>  $biodata->gambar]);
-        //     } else {
-        //         $path = $request->file('profile')->store('/profile');
-        //         $request->merge(['gambar' => env('APP_URL') . '/assets/' .  $path]);
-        //     }
-        // }
-
-        if ($request->profile) {
-            if ($biodata->gambar) {
-                $path = $request->file('profile')->storeAs('/profile', $this->get_file_name($biodata->gambar));
-                $request->merge(['gambar' =>  $biodata->gambar]);
+        if ($request->file('profile')) {
+            if ($dosen->biodata->gambar) {
+                Storage::delete($dosen->biodata->gambar);
+                $path =  $request->file('profile')->store('/profile');
             } else {
-                $path = $request->file('profile')->store('/profile');
-                $request->merge(['gambar' =>  $path]);
+                $path =  $request->file('profile')->store('/profile');
             }
+            $request->merge(['gambar' => $path]);
         }
 
         $biodata->update($request->except(['profile', 'name', 'username', 'is_reset_password']));
