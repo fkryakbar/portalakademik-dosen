@@ -31,7 +31,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|max:100',
 
-            'gambar' => 'file|mimes:jpeg,png|max:100',
+            'profile' => 'file|mimes:jpeg,png|max:100',
             'nik' => 'max:100',
             'email' => 'max:100',
             'no_telp' => 'max:30',
