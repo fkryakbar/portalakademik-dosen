@@ -1,4 +1,4 @@
-<div class="p-4 bg-white drop-shadow h-full fixed w-[300px] z-[100] transition-all overflow-y-auto" x-show="open"
+<div class="p-4 bg-white shadow h-full fixed w-[300px] z-[100] transition-all overflow-y-auto" x-show="open"
     x-transition:enter="transition ease-in-out duration-150"
     x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
     x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
@@ -66,7 +66,7 @@
     </a>
 </div>
 
-<div class="p-4 bg-white drop-shadow h-full lg:block hidden w-[300px] z-[100] transition-all overflow-y-auto">
+<div class="p-4 bg-white shadow h-full lg:block hidden w-[300px] z-[100] transition-all overflow-y-auto">
     <div class="flex justify-between items-center">
         <div class="flex gap-2 items-center">
             <img src="{{ asset('assets/image/logo.png') }}" alt="logo" class="w-9">

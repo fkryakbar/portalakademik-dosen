@@ -29,7 +29,7 @@
             </div>
             <div class="p-2 flex flex-col">
                 <x-Header />
-                <div class="p-2 bg-white rounded drop-shadow mt-3  overflow-auto flex-grow">
+                <div class="p-2 bg-white rounded shadow mt-3 flex-grow">
                     @yield('content')
                 </div>
             </div>
