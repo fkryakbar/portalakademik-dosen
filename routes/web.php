@@ -47,13 +47,13 @@ Route::get('/logout', function (Request $request) {
 });
 
 
-Route::get('/run-dev', function () {
+// Route::get('/run-dev', function () {
 
-    $user = User::where('role', 'dosen')->firstOrFail();
-    Auth::login($user);
-    if (Auth::check()) {
-        if (Auth::user()->role == 'dosen') {
-            return redirect()->to('/profile');
-        }
-    }
-});
+//     $user = User::where('role', 'dosen')->firstOrFail();
+//     Auth::login($user);
+//     if (Auth::check()) {
+//         if (Auth::user()->role == 'dosen') {
+//             return redirect()->to('/profile');
+//         }
+//     }
+// });
