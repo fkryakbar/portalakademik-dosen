@@ -31,7 +31,19 @@ class PresensiController extends Controller
             'dari_jam' => 'required|max:10',
             'sampai_jam' => 'required|max:10',
 
-            'foto_perkuliahan' => 'required|file|mimes:jpeg,png|max:500',
+            'foto_perkuliahan' => 'required|file|mimes:jpeg,png|max:4096',
+        ], [
+            'mata_kuliah.required' => 'Mata Kuliah wajib diisi',
+            'aktivitas.required' => 'Aktivitas wajib diisi',
+            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa wajib diisi',
+            'mahasiswa_tidak_hadir.required' => 'Jumlah Mahasiswa tidak hadir wajib diisi',
+            'detail_mahasiswa_tidak_hadir.required' => 'Detail Mahasiswa tidak hadir wajib diisi',
+            'tanggal.required' => 'Tanggal wajib diisi',
+            'dari_jam.required' => 'Dari Jam wajib diisi',
+            'sampai_jam.required' => 'Sampai Jam wajib diisi',
+            'foto_perkuliahan.required' => 'Foto Perkuliahan wajib diupload',
+            'foto_perkuliahan.mimes' => 'Foto Perkuliahan wajib berupa file foto format JPEG atau PNG',
+            'foto_perkuliahan.max' => 'Foto Perkuliahan Maksimal 4 MB',
         ]);
         $tahun_ajaran = TahunAjaran::latest()->first();
 
@@ -87,7 +99,19 @@ class PresensiController extends Controller
             'dari_jam' => 'required|max:10',
             'sampai_jam' => 'required|max:10',
 
-            'foto_perkuliahan' => 'file|mimes:jpeg,png|max:500',
+            'foto_perkuliahan' => 'file|mimes:jpeg,png|max:4096',
+        ], [
+            'mata_kuliah.required' => 'Mata Kuliah wajib diisi',
+            'aktivitas.required' => 'Aktivitas wajib diisi',
+            'jumlah_mahasiswa.required' => 'Jumlah Mahasiswa wajib diisi',
+            'mahasiswa_tidak_hadir.required' => 'Jumlah Mahasiswa tidak hadir wajib diisi',
+            'detail_mahasiswa_tidak_hadir.required' => 'Detail Mahasiswa tidak hadir wajib diisi',
+            'tanggal.required' => 'Tanggal wajib diisi',
+            'dari_jam.required' => 'Dari Jam wajib diisi',
+            'sampai_jam.required' => 'Sampai Jam wajib diisi',
+            'foto_perkuliahan.required' => 'Foto Perkuliahan wajib diupload',
+            'foto_perkuliahan.mimes' => 'Foto Perkuliahan wajib berupa file foto format JPEG atau PNG',
+            'foto_perkuliahan.max' => 'Foto Perkuliahan Maksimal 4 MB',
         ]);
         $presensi = Presensi::where('kode_pertemuan', $kode_pertemuan)->where('user_id', Auth::user()->id)->where('time_to_edit', '>', time())->firstOrFail();
 
