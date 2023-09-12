@@ -53,7 +53,8 @@
 
                         </div>
                         <div class="mb-6">
-                            <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Aktivitas</label>
+                            <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">Aktivitas dan Materi
+                                Perkuliahan</label>
                             <textarea id="aktivitas" rows="4" name="aktivitas"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">{{ $presensi->aktivitas }}</textarea>
 
@@ -136,7 +137,7 @@
                                 Perkuliahan</label>
                             <img src="{{ asset('storage/' . $presensi->image_path) }}" alt="photo perkuliahan"
                                 class="w-[200px] rounded">
-                            <p class="mt-3 text-xs">Foto (jpg/jpeg, (max. 500 KB))</p>
+                            <p class="mt-3 text-xs">Foto (jpg/jpeg, (max. 4 MB))</p>
                             <input class="file-input file-input-bordered w-full max-w-xs mt-3" id="file_input"
                                 type="file" name="foto_perkuliahan">
                         </div>
@@ -161,7 +162,7 @@
                                         <td class="p-2">: {{ $presensi->waktu_perkuliahan }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="p-2">Aktivitas</td>
+                                        <td class="p-2">Aktivitas dan Materi Perkuliahan</td>
                                         <td class="p-2">: {{ $presensi->aktivitas }}</td>
                                     </tr>
                                     <tr>
