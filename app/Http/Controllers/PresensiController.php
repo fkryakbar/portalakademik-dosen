@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MataKuliah;
 use App\Models\Presensi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
@@ -13,8 +14,10 @@ class PresensiController extends Controller
     public function index()
     {
         $tahun_ajaran = TahunAjaran::latest()->limit(14)->get();
+        $mata_kuliah = MataKuliah::latest()->get();
         return view('presensi.index', [
-            'tahun_ajaran' => $tahun_ajaran
+            'tahun_ajaran' => $tahun_ajaran,
+            'mata_kuliah' => $mata_kuliah
         ]);
     }
 
@@ -26,6 +29,7 @@ class PresensiController extends Controller
             'jumlah_mahasiswa' => 'required|numeric|max:300',
             'mahasiswa_tidak_hadir' => 'required|numeric|max:300',
             'detail_mahasiswa_tidak_hadir' => 'max:500',
+            'jumlah_sks' => 'required|numeric|max:10',
 
             'tanggal' => 'required|max:30',
             'dari_jam' => 'required|max:10',
@@ -44,6 +48,7 @@ class PresensiController extends Controller
             'foto_perkuliahan.required' => 'Foto Perkuliahan wajib diupload',
             'foto_perkuliahan.mimes' => 'Foto Perkuliahan wajib berupa file foto format JPEG atau PNG',
             'foto_perkuliahan.max' => 'Foto Perkuliahan Maksimal 4 MB',
+            'jumlah_sks.required' => 'Jumlah SKS Wajib diisi'
         ]);
         $tahun_ajaran = TahunAjaran::latest()->first();
 
@@ -66,8 +71,10 @@ class PresensiController extends Controller
     public function view($kode_pertemuan)
     {
         $presensi = Presensi::where('kode_pertemuan', $kode_pertemuan)->where('user_id', Auth::user()->id)->firstOrFail();
+        $mata_kuliah = MataKuliah::latest()->get();
         return view('presensi.view', [
-            'presensi' => $presensi
+            'presensi' => $presensi,
+            'mata_kuliah' => $mata_kuliah
         ]);
     }
     public function delete($kode_pertemuan)
@@ -94,6 +101,7 @@ class PresensiController extends Controller
             'jumlah_mahasiswa' => 'required|numeric|max:300',
             'mahasiswa_tidak_hadir' => 'required|numeric|max:300',
             'detail_mahasiswa_tidak_hadir' => 'max:500',
+            'jumlah_sks' => 'required|numeric|max:10',
 
             'tanggal' => 'required|max:30',
             'dari_jam' => 'required|max:10',
@@ -112,6 +120,7 @@ class PresensiController extends Controller
             'foto_perkuliahan.required' => 'Foto Perkuliahan wajib diupload',
             'foto_perkuliahan.mimes' => 'Foto Perkuliahan wajib berupa file foto format JPEG atau PNG',
             'foto_perkuliahan.max' => 'Foto Perkuliahan Maksimal 4 MB',
+            'jumlah_sks.required' => 'Jumlah SKS Wajib diisi'
         ]);
         $presensi = Presensi::where('kode_pertemuan', $kode_pertemuan)->where('user_id', Auth::user()->id)->where('time_to_edit', '>', time())->firstOrFail();
 

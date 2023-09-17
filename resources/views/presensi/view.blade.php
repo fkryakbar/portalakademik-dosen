@@ -45,10 +45,22 @@
                 <div class="mt-3 rounded-lg border-[1px] border-gray-200 p-4">
                     <form action="" class="mt-5" enctype="multipart/form-data" method="POST">
                         @csrf
-                        <div class="mb-6">
+                        <div class="mb-6 mt-6">
                             <label for="mata_kuliah" class="block mb-2 text-sm font-medium text-gray-900">Mata
                                 Kuliah</label>
-                            <input type="text" id="mata_kuliah" name="mata_kuliah" value="{{ $presensi->mata_kuliah }}"
+                            <select id="mata_kuliah" name="mata_kuliah"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                <option value="" disabled selected>Pilih Mata Kuliah</option>
+                                @foreach ($mata_kuliah as $i => $m)
+                                    <option value="{{ $m->nama }}" @selected($m->nama == $presensi->mata_kuliah)>
+                                        {{ $m->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="jumlah_sks" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
+                                SKS</label>
+                            <input type="number" id="jumlah_sks" name="jumlah_sks" value="{{ $presensi->jumlah_sks }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
 
                         </div>
@@ -158,6 +170,10 @@
                                         <td class="p-2">: {{ $presensi->mata_kuliah }}</td>
                                     </tr>
                                     <tr>
+                                        <td class="p-2">Jumlah SKS</td>
+                                        <td class="p-2">: {{ $presensi->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="p-2">Waktu Perkuliahan</td>
                                         <td class="p-2">: {{ $presensi->waktu_perkuliahan }}</td>
                                     </tr>
@@ -198,5 +214,7 @@
             @endif
         </div>
     </div>
-
+    <script>
+        $('#mata_kuliah').select2();
+    </script>
 @endsection
