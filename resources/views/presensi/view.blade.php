@@ -99,7 +99,7 @@
                         @php
                             $max = new DateTime();
                             $max = $max->format('Y-m-d');
-                            
+
                             $min = new DateTime();
                             $min = $min->sub(new DateInterval('P7D'));
                             $min = $min->format('Y-m-d');
@@ -107,14 +107,14 @@
                         @php
                             $waktu_perkuliahan = $presensi->waktu_perkuliahan;
                             $waktu_array = explode(' ', $waktu_perkuliahan);
-                            
+
                             $tanggal = $waktu_array[0];
                             $jam = $waktu_array[1];
-                            
+
                             $jam_array = explode('-', $jam);
                             $dari_jam = $jam_array[0];
                             $sampai_jam = $jam_array[1];
-                            
+
                         @endphp
                         <div class="mb-6">
                             <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
@@ -128,7 +128,7 @@
                                     </svg>
                                 </div>
                                 <input type="date" id="tanggal" name="tanggal" value="{{ $tanggal }}"
-                                    max="{{ $max }}" min="{{ $min }}"
+                                    max="{{ $max }}" min="{{ $max }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                     placeholder="Select date">
                             </div>
