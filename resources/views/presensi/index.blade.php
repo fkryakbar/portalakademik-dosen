@@ -40,13 +40,21 @@
                 <p>{{ session('message') }}</p>
             </div>
         @endif
-        <div id="gps_warning" class="p-3 bg-red-400 rounded-lg my-2 hidden gap-2 items-center">
+        <div id="gps_warning" class="p-3 bg-amber-400 rounded-lg my-2 hidden gap-2 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
             </svg>
-            Anda belum berada di lingkungan STIT Assunniyyah Tambarangan
+            Anda belum berada di titik lokasi STIT Assunniyyah Tambarangan
+        </div>
+        <div id="gps_error" class="p-3 bg-red-400 rounded-lg my-2 hidden gap-2 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+            Aplikasi belum mendapatkan akses lokasi atau GPS tidak aktif
         </div>
         <div class="flex justify-between items-center mt-4">
             <p class="hidden lg:block font-bold text-gray-700 text-xl">Data Presensi</p>
@@ -194,6 +202,7 @@
             if ("geolocation" in navigator) {
                 const presensi_button = document.getElementById('presensi_button');
                 const gps_warning = document.getElementById('gps_warning');
+                const gps_error = document.getElementById('gps_error');
                 presensi_button.style.display = 'none';
                 gps_warning.style.display = 'none';
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -203,12 +212,14 @@
 
                     const distance = getDistanceFromLatLonInMeter(latitude, longitude, -3.0035154, 115.1255637);
                     console.log(`Jarak antara dua titik: ${distance} meter`);
-                    if (distance < 700) {
+                    if (distance < 500) {
                         presensi_button.style.display = 'block';
                     } else {
                         gps_warning.style.display = 'flex';
                     }
 
+                }, function(error) {
+                    gps_error.style.display = 'flex';
                 });
             } else {
                 console.log("Geolocation tidak didukung oleh browser Anda.");
