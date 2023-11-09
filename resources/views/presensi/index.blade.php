@@ -198,7 +198,9 @@
                 }
             }
         }).mount('#app')
-        @if (Auth::user()->username == 2010118210009 || Auth::user()->username == 8909730022)
+        @if (Auth::user()->username == 2010118210009 ||
+                Auth::user()->username == 8909730022 ||
+                Auth::user()->username == 'cobadosen')
             if ("geolocation" in navigator) {
                 const presensi_button = document.getElementById('presensi_button');
                 const gps_warning = document.getElementById('gps_warning');
