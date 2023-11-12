@@ -75,14 +75,16 @@
                     <!-- head -->
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Waktu Perkuliahan</th>
                             <th>Mata Kuliah</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="data_presensi">
-                        <tr v-for="d in data" :key="d.id">
-                            <td>@{{ d.waktu_perkuliahan }}</td>
+                        <tr v-for="(d, index) in data" :key="d.id">
+                            <td class="w-[30px]">@{{ index + 1 }}</td>
+                            <td class="w-[300px]">@{{ d.waktu_perkuliahan }}</td>
                             <td>@{{ d.mata_kuliah }}</td>
                             <td class="flex gap-2">
                                 <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
@@ -238,7 +240,7 @@
                 Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
                 Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c; // Jarak dalam meter
+            const distance = R * c;
             return Math.round(distance);
         }
 
