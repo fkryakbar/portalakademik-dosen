@@ -30,14 +30,26 @@
         </div>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
-                <div class="p-3 bg-red-400 rounded-lg my-2">
-                    <li>{{ $error }}</li>
+                <div class="p-3 bg-red-400 rounded-lg my-2 flex gap-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>
+                        {{ $error }}
+                    </p>
                 </div>
             @endforeach
         @endif
         @if (session()->has('message'))
-            <div class="p-3 bg-green-500 text-white rounded-lg my-2">
-                <p>{{ session('message') }}</p>
+            <div role="alert" class="alert alert-success my-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ session('message') }}!</span>
             </div>
         @endif
         <div id="gps_warning" class="p-3 bg-amber-400 rounded-lg my-2 hidden gap-2 items-center">
@@ -200,8 +212,7 @@
                 }
             }
         }).mount('#app')
-        @if (Auth::user()->username == 2010118210009 ||
-                Auth::user()->username == 8909730022 ||
+        @if (Auth::user()->username == 8909730022 ||
                 Auth::user()->username == 'cobadosen' ||
                 Auth::user()->username == 6305047010880001 ||
                 Auth::user()->username == 6305044102820002)
@@ -258,7 +269,7 @@
                 @csrf
                 <div class="mb-6 mt-6">
                     <label for="mata_kuliah" class="block mb-2 text-sm font-medium text-gray-900">Mata Kuliah</label>
-                    <select id="mata_kuliah" name="mata_kuliah"
+                    <select required id="mata_kuliah" name="mata_kuliah"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                         <option value="" disabled selected>Pilih Mata Kuliah</option>
                         @foreach ($mata_kuliah as $i => $m)
@@ -270,20 +281,20 @@
                 <div class="mb-6 mt-6">
                     <label for="jumlah_sks" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
                         SKS</label>
-                    <input type="number" id="jumlah_sks" name="jumlah_sks" value="{{ old('jumlah_sks') }}"
+                    <input required type="number" id="jumlah_sks" name="jumlah_sks" value="{{ old('jumlah_sks') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                 </div>
                 <div class="mb-6">
                     <label for="aktivitas" class="block mb-2 text-sm font-medium text-gray-900 ">Aktivitas atau Materi
                         Perkuliahan</label>
-                    <textarea id="aktivitas" rows="4" name="aktivitas"
+                    <textarea required id="aktivitas" rows="4" name="aktivitas"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                         placeholder="Aktivitas">{{ old('aktivitas') }}</textarea>
                 </div>
                 <div class="mb-6 mt-6">
                     <label for="jumlah_mahasiswa" class="block mb-2 text-sm font-medium text-gray-900">Jumlah
                         Mahasiswa</label>
-                    <input type="number" id="jumlah_mahasiswa" name="jumlah_mahasiswa"
+                    <input required type="number" id="jumlah_mahasiswa" name="jumlah_mahasiswa"
                         value="{{ old('jumlah_mahasiswa') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                 </div>
@@ -291,7 +302,7 @@
                     <label for="mahasiswa_tidak_hadir" class="block mb-2 text-sm font-medium text-gray-900">Mahasiswa
                         tidak
                         hadir</label>
-                    <input type="number" id="mahasiswa_tidak_hadir" name="mahasiswa_tidak_hadir"
+                    <input required type="number" id="mahasiswa_tidak_hadir" name="mahasiswa_tidak_hadir"
                         value="{{ old('mahasiswa_tidak_hadir') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                 </div>
@@ -323,7 +334,7 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input type="date" id="tanggal" name="tanggal" value="{{ old('tanggal') }}"
+                        <input required type="date" id="tanggal" name="tanggal" value="{{ old('tanggal') }}"
                             max="{{ $max }}" min="{{ $max }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                             placeholder="Select date">
@@ -332,18 +343,27 @@
                 <div class="mb-6 mt-6">
                     <label for="dari_jam" class="block mb-2 text-sm font-medium text-gray-900">Jam Perkuliahan</label>
                     <div class="grid grid-cols-3 gap-2 items-center">
-                        <input type="time" id="dari_jam" name="dari_jam" value="{{ old('dari_jam') }}"
+                        <input required type="time" id="dari_jam" name="dari_jam" value="{{ old('dari_jam') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         <p class="text-center">Sampai</p>
-                        <input type="time" id="sampai_jam" name="sampai_jam" value="{{ old('sampai_jam') }}"
+                        <input required type="time" id="sampai_jam" name="sampai_jam"
+                            value="{{ old('sampai_jam') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                     </div>
                 </div>
                 <div class="mb-6 mt-6">
                     <label for="foto_perkuliahan" class="block mb-2 text-sm font-medium text-gray-900">Foto
                         Perkuliahan</label>
-                    <input id="foto_perkuliahan" name="foto_perkuliahan" type="file"
+                    <input required id="foto_perkuliahan" name="foto_perkuliahan" type="file"
                         class="file-input w-full max-w-xs" />
+                </div>
+                <div role="alert" class="alert alert-warning mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Data maksimal bisa diedit dan dihapus setelah 1 jam melakukan submit</span>
                 </div>
                 <div class="mb-6 flex justify-end gap-3">
                     <label for="buat_presensi"
@@ -357,25 +377,25 @@
         <label class="modal-backdrop" for="buat_presensi">Close</label>
     </div>
     <script>
-        const form = document.getElementById('form_presensi');
-        const submit_button = document.getElementById('submit_button');
+        // const form = document.getElementById('form_presensi');
+        // const submit_button = document.getElementById('submit_button');
         $('#mata_kuliah').select2();
-        submit_button.addEventListener('click', function(e) {
-            e.preventDefault();
+        // submit_button.addEventListener('click', function(e) {
+        //     e.preventDefault();
 
-            Swal.fire({
-                title: 'Yakin mau mensubmit data?',
-                text: "Data maksimal bisa diedit dan dihapus setelah 1 jam melakukan submit",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Submit sekarang'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit()
-                }
-            })
-        })
+        //     Swal.fire({
+        //         title: 'Yakin mau mensubmit data?',
+        //         text: "Data maksimal bisa diedit dan dihapus setelah 1 jam melakukan submit",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Submit sekarang'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             form.submit()
+        //         }
+        //     })
+        // })
     </script>
 @endsection
