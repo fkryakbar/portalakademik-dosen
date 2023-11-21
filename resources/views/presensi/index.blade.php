@@ -215,7 +215,11 @@
         @if (Auth::user()->username == 8909730022 ||
                 Auth::user()->username == 'cobadosen' ||
                 Auth::user()->username == 6305047010880001 ||
-                Auth::user()->username == 6305044102820002)
+                Auth::user()->username == 6305044102820002 ||
+                Auth::user()->username == 8929730022 ||
+                Auth::user()->username == 6306051704680004 ||
+                Auth::user()->username == 'Eddykhairani77' ||
+                Auth::user()->username == 6305034911990002)
             if ("geolocation" in navigator) {
                 const presensi_button = document.getElementById('presensi_button');
                 const gps_warning = document.getElementById('gps_warning');
