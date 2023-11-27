@@ -212,40 +212,33 @@
                 }
             }
         }).mount('#app')
-        @if (Auth::user()->username == 8909730022 ||
-                Auth::user()->username == 'cobadosen' ||
-                Auth::user()->username == 6305047010880001 ||
-                Auth::user()->username == 6305044102820002 ||
-                Auth::user()->username == 8929730022 ||
-                Auth::user()->username == 6306051704680004 ||
-                Auth::user()->username == 'Eddykhairani77' ||
-                Auth::user()->username == 6305034911990002)
-            if ("geolocation" in navigator) {
-                const presensi_button = document.getElementById('presensi_button');
-                const gps_warning = document.getElementById('gps_warning');
-                const gps_error = document.getElementById('gps_error');
-                presensi_button.style.display = 'none';
-                gps_warning.style.display = 'none';
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
 
 
-                    const distance = getDistanceFromLatLonInMeter(latitude, longitude, -3.0035154, 115.1255637);
-                    console.log(`Jarak antara dua titik: ${distance} meter`);
-                    if (distance < 500) {
-                        presensi_button.style.display = 'block';
-                    } else {
-                        gps_warning.style.display = 'flex';
-                    }
+        if ("geolocation" in navigator) {
+            const presensi_button = document.getElementById('presensi_button');
+            const gps_warning = document.getElementById('gps_warning');
+            const gps_error = document.getElementById('gps_error');
+            presensi_button.style.display = 'none';
+            gps_warning.style.display = 'none';
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
-                }, function(error) {
-                    gps_error.style.display = 'flex';
-                });
-            } else {
-                console.log("Geolocation tidak didukung oleh browser Anda.");
-            }
-        @endif
+
+                const distance = getDistanceFromLatLonInMeter(latitude, longitude, -3.0035154, 115.1255637);
+                console.log(`Jarak antara dua titik: ${distance} meter`);
+                if (distance < 500) {
+                    presensi_button.style.display = 'block';
+                } else {
+                    gps_warning.style.display = 'flex';
+                }
+
+            }, function(error) {
+                gps_error.style.display = 'flex';
+            });
+        } else {
+            console.log("Geolocation tidak didukung oleh browser Anda.");
+        }
 
         function getDistanceFromLatLonInMeter(lat1, lon1, lat2, lon2) {
             const R = 6371000;
