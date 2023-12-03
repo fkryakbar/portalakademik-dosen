@@ -68,6 +68,10 @@
             </svg>
             Aplikasi belum mendapatkan akses lokasi atau GPS tidak aktif
         </div>
+        <div id="gps_loading" class="p-3 rounded-lg my-2 flex gap-2 items-center ">
+            <span class="loading loading-spinner loading-sm"></span>
+            GPS Loading...
+        </div>
         <div class="flex justify-between items-center mt-4">
             <p class="hidden lg:block font-bold text-gray-700 text-xl">Data Presensi</p>
             <div class="flex gap-2 items-center">
@@ -218,6 +222,7 @@
             const presensi_button = document.getElementById('presensi_button');
             const gps_warning = document.getElementById('gps_warning');
             const gps_error = document.getElementById('gps_error');
+            const gps_loading = document.getElementById('gps_loading');
             presensi_button.style.display = 'none';
             gps_warning.style.display = 'none';
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -232,12 +237,14 @@
                 } else {
                     gps_warning.style.display = 'flex';
                 }
-
+                gps_loading.style.display = 'none';
             }, function(error) {
                 gps_error.style.display = 'flex';
+                gps_loading.style.display = 'none';
             });
         } else {
             console.log("Geolocation tidak didukung oleh browser Anda.");
+            gps_loading.style.display = 'none';
         }
 
         function getDistanceFromLatLonInMeter(lat1, lon1, lat2, lon2) {
@@ -262,7 +269,8 @@
     <div class="modal">
         <div class="modal-box">
             <h3 class="font-bold text-lg">Tambah Presensi</h3>
-            <form id="form_presensi" action="" method="POST" enctype="multipart/form-data">
+            <form id="form_presensi" action="" method="POST" enctype="multipart/form-data"
+                onsubmit="submit_form()">
                 @csrf
                 <div class="mb-6 mt-6">
                     <label for="mata_kuliah" class="block mb-2 text-sm font-medium text-gray-900">Mata Kuliah</label>
@@ -366,33 +374,20 @@
                     <label for="buat_presensi"
                         class="bg-gray-200 text-gray-800 rounded-lg font-semibold text-sm lg:text-base p-2">BATAL</label>
                     <button id="submit_button"
-                        class="bg-green-500 rounded-lg font-semibold text-white text-sm lg:text-base p-2">BUAT
-                        PRESENSI</button>
+                        class="bg-green-500 rounded-lg font-semibold text-white text-sm lg:text-base p-2">Buat
+                        Presensi</button>
                 </div>
             </form>
         </div>
         <label class="modal-backdrop" for="buat_presensi">Close</label>
     </div>
     <script>
-        // const form = document.getElementById('form_presensi');
-        // const submit_button = document.getElementById('submit_button');
         $('#mata_kuliah').select2();
-        // submit_button.addEventListener('click', function(e) {
-        //     e.preventDefault();
 
-        //     Swal.fire({
-        //         title: 'Yakin mau mensubmit data?',
-        //         text: "Data maksimal bisa diedit dan dihapus setelah 1 jam melakukan submit",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Submit sekarang'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             form.submit()
-        //         }
-        //     })
-        // })
+        function submit_form() {
+            const submit_button = document.getElementById('submit_button');
+            submit_button.disabled = true;
+            submit_button.classList.add('opacity-50')
+        }
     </script>
 @endsection
