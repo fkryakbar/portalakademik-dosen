@@ -37,7 +37,9 @@ class ManagePenilaian extends Component
             $query->where('kode_kelas', $this->kode_kelas);
         })->whereHas('kartu_studi', function ($query) use ($kelas) {
             $query->where('kode_mata_kuliah', $kelas->mata_kuliah->kode);
-        })->with('kartu_studi', 'kelas')->get();
+        })->with(['kartu_studi' => function ($query) use ($kelas) {
+            $query->where('kode_mata_kuliah', $kelas->mata_kuliah->kode);
+        }, 'kelas'])->get();
 
         return view('penilaian.manage-penilaian', [
             'kelas' => $kelas,
