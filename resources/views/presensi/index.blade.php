@@ -4,6 +4,7 @@
 
 @section('head-tag')
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection
 
 @section('content')

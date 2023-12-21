@@ -28,4 +28,15 @@ class User extends Authenticatable
     }
     protected $guarded = [];
     protected $hidden = ['password', 'password_reset', 'is_reset_password'];
+
+
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'user_kelas');
+    }
+
+    public function kartu_studi()
+    {
+        return $this->hasMany(KartuStudi::class, 'username', 'username');
+    }
 }

@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @section('title', 'Detail Presensi')
-
+@section('head-tag')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endsection
 @section('content')
     <div class="p-5 min-h-screen">
         <div class="flex justify-between items-center">

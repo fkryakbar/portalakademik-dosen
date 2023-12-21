@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Penilaian\Index as Penilaian;
+use App\Livewire\Penilaian\ManagePenilaian;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -28,6 +31,11 @@ Route::middleware(['auth.dosen'])->group(function () {
         Route::get('/{kode_pertemuan}', [PresensiController::class, 'view']);
         Route::post('/{kode_pertemuan}', [PresensiController::class, 'update']);
         Route::get('/{kode_pertemuan}/hapus', [PresensiController::class, 'delete']);
+    });
+    Route::prefix('penilaian')->group(function () {
+        Route::get('/', Penilaian::class);
+        Route::get('/{kode_kelas}', ManagePenilaian::class);
+        Route::get('/{kode_kelas}/cetak', [PenilaianController::class, 'cetak']);
     });
 
 
