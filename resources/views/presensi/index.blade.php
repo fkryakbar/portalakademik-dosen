@@ -73,7 +73,7 @@
             <span class="loading loading-spinner loading-sm"></span>
             GPS Loading...
         </div>
-        <div class="flex justify-between items-center mt-4">
+        {{-- <div class="flex justify-between items-center mt-4">
             <p class="hidden lg:block font-bold text-gray-700 text-xl">Data Presensi</p>
             <div class="flex gap-2 items-center">
                 <p>Semester</p>
@@ -85,7 +85,7 @@
                     @endforeach
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="pt-10">
             <div class="overflow-x-auto">
                 <table class="table w-full lg:text-base text-xs">
@@ -99,40 +99,99 @@
                         </tr>
                     </thead>
                     <tbody id="data_presensi">
-                        <tr v-for="(d, index) in data" :key="d.id">
-                            <td class="w-[30px]">@{{ index + 1 }}</td>
-                            <td class="w-[300px]">@{{ d.waktu_perkuliahan }}</td>
-                            <td>@{{ d.mata_kuliah }}</td>
-                            <td class="flex gap-2">
-                                <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
-                                    <a :href="`/presensi/${d.kode_pertemuan}`">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div v-if="time < parseInt(d.time_to_edit)"
-                                    class="bg-red-500 p-2 rounded-lg w-fit text-white">
-                                    <button v-on:click="delete_data(d.kode_pertemuan)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                            class="w-6 h-6">
-                                            <path fill-rule="evenodd"
-                                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($presensi as $index => $p)
+                            <tr>
+                                <td class="w-[30px]">
+                                    {{ ($presensi->currentPage() - 1) * $presensi->perPage() + $index + 1 }}
+                                </td>
+                                <td class="w-[300px]">{{ $p->waktu_perkuliahan }}</td>
+                                <td>{{ $p->mata_kuliah }}</td>
+                                <td class="flex gap-2">
+                                    <div class="bg-blue-500 p-2 rounded-lg w-fit text-white">
+                                        <a href="/presensi/{{ $p->kode_pertemuan }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    @if (time() < $p->time_to_edit)
+                                        <div class="bg-red-500 p-2 rounded-lg w-fit text-white">
+                                            <button onclick="delete_data({{ $p->kode_pertemuan }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="w-6 h-6">
+                                                    <path fill-rule="evenodd"
+                                                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <p v-if="isLoading" class="text-center font-semibold mt-5 text-gray-500">Loading ...</p>
-            <p v-if="!isLoading && data.length == 0 " class="text-center font-semibold mt-5 text-gray-500">Belum ada
-                presensi
-            </p>
+            <div class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
+                <div
+                    class="lg:flex-1 flex lg:flex-nowrap flex-wrap gap-2 flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700 leading-5">
+                            {!! __('Showing') !!}
+                            <span class="font-medium">{{ $presensi->firstItem() }}</span>
+                            {!! __('to') !!}
+                            <span class="font-medium">{{ $presensi->lastItem() }}</span>
+                            {!! __('of') !!}
+                            <span class="font-medium">{{ $presensi->total() }}</span>
+                            {!! __('results') !!}
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            @if ($presensi->onFirstPage())
+                                <span
+                                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-l-md">
+                                    {!! __('pagination.previous') !!}
+                                </span>
+                            @else
+                                <a href="{{ $presensi->previousPageUrl() }}" rel="prev"
+                                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 leading-5 rounded-l-md hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150">
+                                    {!! __('pagination.previous') !!}
+                                </a>
+                            @endif
+
+                            @for ($page = 1; $page <= $presensi->lastPage(); $page++)
+                                @if ($page == $presensi->currentPage())
+                                    <span
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-blue-600 bg-blue-100 border border-blue-300 cursor-default leading-5">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $presensi->url($page) }}"
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:bg-gray-100 focus:z-10 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">{{ $page }}</a>
+                                @endif
+                            @endfor
+
+                            @if ($presensi->hasMorePages())
+                                <a href="{{ $presensi->nextPageUrl() }}" rel="next"
+                                    class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 leading-5 rounded-r-md hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150">
+                                    {!! __('pagination.next') !!}
+                                </a>
+                            @else
+                                <span
+                                    class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-r-md">
+                                    {!! __('pagination.next') !!}
+                                </span>
+                            @endif
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            @if (count($presensi) == 0)
+                <p class="text-center font-semibold mt-5 text-gray-500">Belum ada
+                    presensi
+                </p>
+            @endif
         </div>
     </div>
     <script>
@@ -155,68 +214,21 @@
             onMounted
         } = Vue
 
-        createApp({
-            setup() {
-                const data = ref([])
-                const isLoading = ref(false)
-
-                const time = {{ time() }}
-
-                function getData(tahun_ajaran) {
-                    isLoading.value = true
-                    fetch(`/api/presensi/${tahun_ajaran}`, {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        }).then(response => response.json())
-                        .then(res => {
-                            data.value = res.data;
-
-                            isLoading.value = false
-                        })
-                        .catch(error => {
-                            Toast.fire({
-                                icon: 'error',
-                                title: 'Something Went Wrong'
-                            })
-                        });
+        function delete_data(kode_pertemuan) {
+            Swal.fire({
+                title: 'Yakin mau menghapus data?',
+                text: "Data tidak akan bisa dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/presensi/${kode_pertemuan}/hapus`
                 }
-
-                function delete_data(kode_pertemuan) {
-                    Swal.fire({
-                        title: 'Yakin mau menghapus data?',
-                        text: "Data tidak akan bisa dikembalikan",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, Hapus!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = `/presensi/${kode_pertemuan}/hapus`
-                        }
-                    })
-                }
-
-                onMounted(() => {
-                    $(document).ready(function() {
-                        $('#tahun-ajaran').select2().on('change', function(e) {
-                            getData(e.target.value)
-                        });;
-                    })
-                    getData(tahun_ajaran_toggle.value)
-                })
-
-                return {
-                    data,
-                    getData,
-                    delete_data,
-                    isLoading,
-                    time
-                }
-            }
-        }).mount('#app')
+            })
+        }
 
 
         if ("geolocation" in navigator) {

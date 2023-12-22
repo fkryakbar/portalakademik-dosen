@@ -13,11 +13,13 @@ class PresensiController extends Controller
 {
     public function index()
     {
-        $tahun_ajaran = TahunAjaran::latest()->limit(14)->get();
+        $tahun_ajaran = TahunAjaran::latest()->first();
         $mata_kuliah = MataKuliah::latest()->get();
+        $presensi = Presensi::where('user_id', Auth::user()->id)->where('kode_tahun_ajaran', $tahun_ajaran->kode_tahun_ajaran)->latest()->paginate();
         return view('presensi.index', [
             'tahun_ajaran' => $tahun_ajaran,
-            'mata_kuliah' => $mata_kuliah
+            'mata_kuliah' => $mata_kuliah,
+            'presensi' => $presensi
         ]);
     }
 
