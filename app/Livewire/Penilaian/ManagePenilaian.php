@@ -20,7 +20,7 @@ class ManagePenilaian extends Component
         session()->flash('success', 'Nilai berhasil disimpan');
     }
 
-    public function refresh()
+    public function refresh_now()
     {
         return redirect('/penilaian/' . $this->kode_kelas);
     }

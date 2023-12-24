@@ -27,18 +27,27 @@ class InputNilai extends Component
     #[Validate('numeric|min:0|max:100')]
     public $uas;
 
-    public $angka;
-    public $bobot;
-    public $huruf;
+    // public $angka;
+    // public $bobot;
+    // public $huruf;
 
     #[On('save-event')]
     public function save()
     {
         $kartu_studi = KartuStudi::where('id', '=', $this->id)->with('mata_kuliah')->firstOrFail();
         $this->validate();
-        if ($this->tugas && $this->uts && $this->uas) {
-            $nilai = $this->konversi_nilai($this->tugas, $this->uts, $this->uas, $kartu_studi->mata_kuliah->jumlah_sks);
+        $nilai = $this->konversi_nilai($this->tugas, $this->uts, $this->uas, $kartu_studi->mata_kuliah->jumlah_sks);
 
+        if ($this->tugas == null && $this->uts == null && $this->uas == null) {
+            $kartu_studi->update([
+                'tugas' => null,
+                'uts' => null,
+                'uas' => null,
+                'angka' => null,
+                'bobot' => null,
+                'huruf' => null,
+            ]);
+        } else {
             $kartu_studi->update([
                 'tugas' => $nilai->tugas,
                 'uts' => $nilai->uts,
@@ -57,9 +66,9 @@ class InputNilai extends Component
         $this->tugas = $this->mahasiswa->kartu_studi[0]->tugas;
         $this->uts = $this->mahasiswa->kartu_studi[0]->uts;
         $this->uas = $this->mahasiswa->kartu_studi[0]->uas;
-        $this->angka = $this->mahasiswa->kartu_studi[0]->angka;
-        $this->bobot = $this->mahasiswa->kartu_studi[0]->bobot;
-        $this->huruf = $this->mahasiswa->kartu_studi[0]->huruf;
+        // $this->angka = $this->mahasiswa->kartu_studi[0]->angka;
+        // $this->bobot = $this->mahasiswa->kartu_studi[0]->bobot;
+        // $this->huruf = $this->mahasiswa->kartu_studi[0]->huruf;
     }
 
     public function render()

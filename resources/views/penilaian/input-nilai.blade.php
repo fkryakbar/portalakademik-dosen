@@ -2,6 +2,7 @@
     <th>{{ $index + 1 }}</th>
     <td>{{ $mahasiswa->username }}</td>
     <td> {{ $mahasiswa->name }}</td>
+    <td> {{ $mahasiswa->one_kartu_studi($kelas->kode_mata_kuliah)->mata_kuliah->nama }}</td>
     <td>
         <div class="flex justify-center">
             @if ($kelas->is_validated == 1)
@@ -44,7 +45,7 @@
             </p>
         @enderror
     </td>
-    <td> {{ $angka }}</td>
-    <td> {{ $bobot }}</td>
-    <td> {{ $huruf }}</td>
+    <td> {{ $mahasiswa->one_kartu_studi($kelas->kode_mata_kuliah)->angka }}</td>
+    <td> {{ $mahasiswa->one_kartu_studi($kelas->kode_mata_kuliah)->bobot }}</td>
+    <td> {{ $mahasiswa->one_kartu_studi($kelas->kode_mata_kuliah)->huruf }}</td>
 </tr>

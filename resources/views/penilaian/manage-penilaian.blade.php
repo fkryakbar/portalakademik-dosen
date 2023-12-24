@@ -65,7 +65,7 @@
                             Cetak
                         </a>
                         @if ($kelas->is_validated != 1)
-                            <button class="btn bg-blue-500 hover:bg-blue-700 text-white" wire:click="refresh"
+                            {{-- <button class="btn bg-blue-500 hover:bg-blue-700 text-white" wire:click="refresh_now"
                                 wire:loading.attr="disabled" wire:target="save">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">
@@ -73,7 +73,7 @@
                                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                 </svg>
                                 Refresh
-                            </button>
+                            </button> --}}
                             <button class="btn bg-green-500 hover:bg-green-700 text-white" wire:click='save'
                                 wire:loading.attr="disabled" wire:target="save">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -95,6 +95,7 @@
                                 <th></th>
                                 <th>NIM</th>
                                 <th>Nama</th>
+                                <th>Mata Kuliah</th>
                                 <th class="text-center">Tugas</th>
                                 <th class="text-center">MT</th>
                                 <th class="text-center">FT</th>

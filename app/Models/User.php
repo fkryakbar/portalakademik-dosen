@@ -39,4 +39,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(KartuStudi::class, 'username', 'username');
     }
+
+    public function one_kartu_studi($kode_mata_kuliah)
+    {
+        return KartuStudi::where('username', $this->username)->where('kode_mata_kuliah', $kode_mata_kuliah)->first();
+    }
 }
