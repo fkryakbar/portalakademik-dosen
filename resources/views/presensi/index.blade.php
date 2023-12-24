@@ -20,14 +20,16 @@
                 </svg>
                 <h1 class="font-bold text-2xl">Presensi</h1>
             </div>
-            <label id="presensi_button" for="buat_presensi"
-                class="p-2 w-fit bg-green-500 rounded-lg font-semibold text-white text-sm lg:text-base hover:cursor-pointer">
+            <div id="presensi_button" class="block">
+                {{-- presensi_button.innerHTML = ` <label for="buat_presensi"
+                class="btn p-2 bg-green-500 rounded-lg font-semibold text-white text-sm lg:text-base hover:cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
-            </label>
+            </label>`; --}}
+            </div>
         </div>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -73,19 +75,6 @@
             <span class="loading loading-spinner loading-sm"></span>
             GPS Loading...
         </div>
-        {{-- <div class="flex justify-between items-center mt-4">
-            <p class="hidden lg:block font-bold text-gray-700 text-xl">Data Presensi</p>
-            <div class="flex gap-2 items-center">
-                <p>Semester</p>
-                <select id="tahun-ajaran"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                    @foreach ($tahun_ajaran as $i => $tahun)
-                        <option @selected($i == 0) value="{{ $tahun->kode_tahun_ajaran }}">
-                            {{ $tahun->nama_tahun_ajaran }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div> --}}
         <div class="pt-10">
             <div class="overflow-x-auto">
                 <table class="table w-full lg:text-base text-xs">
@@ -236,7 +225,7 @@
             const gps_warning = document.getElementById('gps_warning');
             const gps_error = document.getElementById('gps_error');
             const gps_loading = document.getElementById('gps_loading');
-            presensi_button.style.display = 'none';
+            presensi_button.innerHTML = ``;
             gps_warning.style.display = 'none';
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latitude = position.coords.latitude;
@@ -245,8 +234,46 @@
 
                 const distance = getDistanceFromLatLonInMeter(latitude, longitude, -3.0035154, 115.1255637);
                 console.log(`Jarak antara dua titik: ${distance} meter`);
-                if (distance < 500) {
-                    presensi_button.style.display = 'block';
+                if (distance < 400) {
+                    function _0x4b8c() {
+                        var _0x4ccfa8 = ['1684810sEtMYS', '894532oCsFEi', '187MibWIV', '1080312fmJJFx', 'innerHTML',
+                            '\x20<label\x20for=\x22buat_presensi\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20class=\x22btn\x20p-2\x20bg-green-500\x20rounded-lg\x20font-semibold\x20text-white\x20text-sm\x20lg:text-base\x20hover:cursor-pointer\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<svg\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20fill=\x22none\x22\x20viewBox=\x220\x200\x2024\x2024\x22\x20stroke-width=\x221.5\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20stroke=\x22currentColor\x22\x20class=\x22w-6\x20h-6\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20d=\x22M19.5\x2014.25v-2.625a3.375\x203.375\x200\x2000-3.375-3.375h-1.5A1.125\x201.125\x200\x200113.5\x207.125v-1.5a3.375\x203.375\x200\x2000-3.375-3.375H8.25m3.75\x209v6m3-3H9m1.5-12H5.625c-.621\x200-1.125.504-1.125\x201.125v17.25c0\x20.621.504\x201.125\x201.125\x201.125h12.75c.621\x200\x201.125-.504\x201.125-1.125V11.25a9\x209\x200\x2000-9-9z\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</svg>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</label>',
+                            '9yUvhxr', '1901583TkmVuK', '251515bYheKE', '8407VwfCBE', '1578160zpvFMx',
+                            '25ZKIUBl', '3558KLXCtV'
+                        ];
+                        _0x4b8c = function() {
+                            return _0x4ccfa8;
+                        };
+                        return _0x4b8c();
+                    }
+
+                    function _0x2d77(_0x507785, _0x398f23) {
+                        var _0x4b8c03 = _0x4b8c();
+                        return _0x2d77 = function(_0x2d77f5, _0x3a23f5) {
+                            _0x2d77f5 = _0x2d77f5 - 0x1ca;
+                            var _0x170e4f = _0x4b8c03[_0x2d77f5];
+                            return _0x170e4f;
+                        }, _0x2d77(_0x507785, _0x398f23);
+                    }
+                    var _0x33109f = _0x2d77;
+                    (function(_0x5bae95, _0x5009ba) {
+                        var _0x4e3660 = _0x2d77,
+                            _0x3eda0d = _0x5bae95();
+                        while (!![]) {
+                            try {
+                                var _0x3bab34 = parseInt(_0x4e3660(0x1ce)) / 0x1 + parseInt(_0x4e3660(0x1d0)) /
+                                    0x2 + parseInt(_0x4e3660(0x1cd)) / 0x3 + parseInt(_0x4e3660(0x1d4)) / 0x4 *
+                                    (parseInt(_0x4e3660(0x1d1)) / 0x5) + -parseInt(_0x4e3660(0x1d2)) / 0x6 * (-
+                                        parseInt(_0x4e3660(0x1cf)) / 0x7) + parseInt(_0x4e3660(0x1d6)) / 0x8 * (
+                                        parseInt(_0x4e3660(0x1cc)) / 0x9) + -parseInt(_0x4e3660(0x1d3)) / 0xa *
+                                    (parseInt(_0x4e3660(0x1d5)) / 0xb);
+                                if (_0x3bab34 === _0x5009ba) break;
+                                else _0x3eda0d['push'](_0x3eda0d['shift']());
+                            } catch (_0xa8a16b) {
+                                _0x3eda0d['push'](_0x3eda0d['shift']());
+                            }
+                        }
+                    }(_0x4b8c, 0xbd5fc), presensi_button[_0x33109f(0x1ca)] = _0x33109f(0x1cb));
                 } else {
                     gps_warning.style.display = 'flex';
                 }
