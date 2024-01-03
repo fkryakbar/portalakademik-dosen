@@ -31,6 +31,17 @@
                         <td>SKS</td>
                         <td>: {{ $kelas->mata_kuliah->jumlah_sks }}</td>
                     </tr>
+                    <tr>
+                        <td>Status Penilaian</td>
+                        <td class="flex gap-2">: @if ($kelas->is_validated == 1)
+                                <p class="text-center text-xs bg-green-500 p-1 rounded text-white font-semibold">
+                                    DIVALIDASI</p>
+                            @else
+                                <p class="text-center text-xs bg-amber-500 p-1 rounded text-white font-semibold">
+                                    BELUM DIVALIDASI</p>
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

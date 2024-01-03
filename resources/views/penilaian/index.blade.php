@@ -10,14 +10,20 @@
         </svg>
         <h1 class="font-bold text-2xl">Penilaian</h1>
     </div>
-    @foreach ($kelas as $tahun => $t)
+    <div class="flex gap-2 justify-end items-center text-gray-500  mb-3">
+        <input type="text" placeholder="Cari kelas" class="input input-bordered w-full max-w-xs"
+            wire:model.live.debounce.250ms='search' />
+    </div>
+    @forelse ($kelas as $tahun => $t)
         <p class="text-gray-500 font-semibold mb-2">{{ $tahun }}</p>
         <div class="grid lg:grid-cols-4 gap-3 grid-cols-1 mb-5">
             @foreach ($t as $k)
                 <div wire:key='{{ $k->id }}' class="border-[1px] border-gray-200 rounded p-3">
                     <div class="flex justify-center">
-                        <p class="text-center text-xs bg-green-500 p-1 rounded text-white font-semibold">
-                            {{ $k->tahun_ajaran->nama_tahun_ajaran }}</p>
+                        @if ($k->is_validated == 1)
+                            <p class="text-center text-xs bg-green-500 p-1 rounded text-white font-semibold">
+                                DIVALIDASI</p>
+                        @endif
                     </div>
                     <h1 class="text-center text-lg font-semibold text-gray-700">{{ $k->nama }}</h1>
                     <p class="text-center text-sm text-gray-700">{{ $k->kode_mata_kuliah }}</p>
@@ -35,6 +41,15 @@
                 </div>
             @endforeach
         </div>
-    @endforeach
+    @empty
+        <div class="flex flex-col justify-center items-center mt-10 text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-20 h-20">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+            </svg>
+            <p>Tidak ada kelas</p>
+        </div>
+    @endforelse
 
 </div>
