@@ -16,7 +16,15 @@ class Index extends Component
     #[Layout('layouts.main')]
     public function render()
     {
-        $kelas = Kelas::latest()->wherehas('dosen', function ($query) {
+        $kelas = Kelas::latest()->with([
+            'tahun_ajaran',
+            'mahasiswa' => function ($query) {
+                $query->where('role', 'mahasiswa');
+            },
+            'dosen' => function ($query) {
+                $query->where('role', 'dosen');
+            }
+        ])->wherehas('dosen', function ($query) {
             $query->where('user_id', Auth::user()->id);
         })->where('is_visible', 1)->with('tahun_ajaran')->get()->groupBy('tahun_ajaran.nama_tahun_ajaran');
 
@@ -25,7 +33,15 @@ class Index extends Component
             $kelas = Kelas::where(function (Builder $query) use ($search) {
                 $query->where('nama', 'like', '%' . $search . '%')
                     ->orWhere('kode_mata_kuliah', 'like', '%' . $search . '%');
-            })->latest()->wherehas('dosen', function ($query) {
+            })->latest()->with([
+                'tahun_ajaran',
+                'mahasiswa' => function ($query) {
+                    $query->where('role', 'mahasiswa');
+                },
+                'dosen' => function ($query) {
+                    $query->where('role', 'dosen');
+                }
+            ])->wherehas('dosen', function ($query) {
                 $query->where('user_id', Auth::user()->id);
             })->where('is_visible', 1)->with('tahun_ajaran')->get()->groupBy('tahun_ajaran.nama_tahun_ajaran');
         }

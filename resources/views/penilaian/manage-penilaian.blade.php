@@ -10,6 +10,12 @@
         </svg>
         <h1 class="font-bold text-2xl">Penilaian - {{ $kelas->nama }}</h1>
     </div>
+    <div class="text-sm breadcrumbs">
+        <ul>
+            <li><a href="/penilaian">Penilaian</a></li>
+            <li>Kelas</li>
+        </ul>
+    </div>
     <div class="grid grid-cols-1 gap-3">
         <div class="border-[1px] border-gray-200 rounded p-3">
             <h2 class="text-gray-700 font-semibold text-lg">Mata Kuliah </h2>
