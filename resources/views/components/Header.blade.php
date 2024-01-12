@@ -9,7 +9,23 @@
         </button>
         <p>Portal Akademik Dosen</p>
     </div>
-    <div class="text-gray-700 font-bold">
+    <div class="text-gray-700 font-bold flex gap-3 items-center">
+        @php
+            $dosen = App\Models\User::where('id', Auth::user()->id)->firstOrFail();
+        @endphp
+        @if ($dosen->biodata->gambar)
+            <div class="avatar">
+                <div class="w-10 rounded-full">
+                    <img src="{{ asset('storage/' . $dosen->biodata->gambar) }}" alt="photo profile">
+                </div>
+            </div>
+        @else
+            <div class="avatar placeholder">
+                <div class="bg-neutral text-neutral-content rounded-full w-10">
+                    <span class="">{{ $dosen->name[0] }}</span>
+                </div>
+            </div>
+        @endif
         <a href="/logout">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd"
