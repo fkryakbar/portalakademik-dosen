@@ -17,7 +17,7 @@ class ManagePenilaian extends Component
     public function save()
     {
         $this->dispatch('save-event');
-        session()->flash('success', 'Nilai berhasil disimpan');
+        $this->dispatch('saved-alert');
     }
 
     public function refresh_now()
