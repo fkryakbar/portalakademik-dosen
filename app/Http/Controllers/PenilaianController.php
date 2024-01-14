@@ -23,7 +23,7 @@ class PenilaianController extends Controller
             $query->where('kode_mata_kuliah', $kelas->mata_kuliah->kode);
         })->with(['kartu_studi' => function ($query) use ($kelas) {
             $query->where('kode_mata_kuliah', $kelas->mata_kuliah->kode);
-        }, 'kelas'])->get();
+        }, 'kelas'])->orderBy('username', 'asc')->get();
 
         $tanggal =  Carbon::today()->translatedFormat('d F Y');
         $pdf = Pdf::loadView('cetak.rekap-nilai', compact('tanggal', 'kelas', 'mahasiswa'));
