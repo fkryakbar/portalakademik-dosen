@@ -82,6 +82,16 @@
                             Cetak
                         </a>
                         @if ($kelas->is_validated != 1)
+                            <button onclick="upload.showModal()"
+                                class="btn bg-slate-100 hover:bg-slate-700 text-slate-500" wire:loading.attr="disabled"
+                                href="/penilaian/{{ $kelas->kode_kelas }}/cetak" target="_blank" wire:target="save">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                                </svg>
+                                Upload Nilai
+                            </button>
                             <button class="btn bg-green-500 hover:bg-green-700 text-white" wire:click='save'
                                 wire:loading.attr="disabled" wire:target="save">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -127,7 +137,48 @@
                 <p class="text-xs text-gray-400">Belum ada mahasiswa</p>
             @endif
         </div>
+        <dialog id="upload" class="modal" wire:ignore.self>
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Upload Nilai</h3>
+                <button class="my-3 underline text-green-500" wire:click='download_template'>
+                    Download Template
+                </button>
+                <form wire:submit='submit_excel'>
+                    <div class="join">
+                        <input type="file"
+                            class="file-input file-input-bordered w-full join-item @error('excel') file-input-error @enderror"
+                            wire:model='excel' />
+                        <button type="submit" class="btn join-item bg-green-400 hover:bg-green-700 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                            </svg>
+                            Upload
+                        </button>
+                    </div>
+                    @error('excel')
+                        <p class="text-red-500 text-xs text-italic">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </form>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
     </div>
+
+    {{-- @script
+        <script>
+            $wire.on('keep-modal-open', () => {
+                setTimeout(() => {
+                    upload.showModal();
+                }, 500);
+            });
+        </script>
+    @endscript --}}
 
     <script>
         window.addEventListener('saved-alert', function() {

@@ -2,17 +2,29 @@
 
 namespace App\Livewire\Penilaian;
 
+use App\Exports\TemplateNilaiExport;
+use App\Imports\NilaiImport;
 use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManagePenilaian extends Component
 {
+
+    use WithFileUploads;
+
+
     #[Locked]
     public $kode_kelas;
+
+    #[Validate('required|file|mimes:xlsx,xls|max:10240')]
+    public $excel;
 
     public function save()
     {
@@ -23,6 +35,23 @@ class ManagePenilaian extends Component
     public function refresh_now()
     {
         return redirect('/penilaian/' . $this->kode_kelas);
+    }
+
+
+
+    public function download_template()
+    {
+        $export =  new TemplateNilaiExport($this->kode_kelas);
+
+        return Excel::download($export, 'Nilai - ' . $this->kode_kelas . '.xlsx');
+    }
+
+    public function submit_excel()
+    {
+        $this->validate();
+
+        Excel::import(new NilaiImport($this->kode_kelas), $this->excel);
+        $this->dispatch('saved-alert');
     }
 
 
